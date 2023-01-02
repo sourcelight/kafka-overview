@@ -38,7 +38,7 @@ public class FilteredStreamApiV2 {
 
 
         //String bearerToken = System.getenv("BEARER_TOKEN");
-        String bearerToken = "AAAAAAAAAAAAAAAAAAAAAEEdkwEAAAAAtzAJkdoyGl1r%2BJWKGIvtJfHpdDQ%3DSOyYIUkTTtXE8Vny78OOjQUMJCtCVlzhtUwhidcK8C47n04YSA";
+        String bearerToken = "";
         if (null != bearerToken) {
             Map<String, String> rules = new HashMap<>();
             //rules.put("cats has:images", "cat images");

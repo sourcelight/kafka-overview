@@ -1,6 +1,7 @@
 package twitter;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -11,6 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  *
  */
+@Slf4j
 @RequiredArgsConstructor
 public class TwitterProducerThread implements Runnable{
     private final BlockingQueue<String> blockingQueue;
@@ -33,5 +35,6 @@ public class TwitterProducerThread implements Runnable{
 
     public void stop() {
         ab.set(false);
+        log.info("putting to false the atomic variable");
     }
 }
