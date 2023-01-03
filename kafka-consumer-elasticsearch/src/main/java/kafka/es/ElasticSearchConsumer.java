@@ -78,7 +78,8 @@ public class ElasticSearchConsumer {
 
     private static JsonParser jsonParser = new JsonParser();
     private static String extractIdFromTweet(String tweetJson){
-        return jsonParser.parse(tweetJson).getAsJsonObject().get("id_str").getAsString();
+        //return jsonParser.parse(tweetJson).getAsJsonObject().get("id_str").getAsString();
+        return jsonParser.parse(tweetJson).getAsJsonObject().get("data").getAsJsonObject().get("id").getAsString();//adapted for a specific tweet message
     }
 
     public static KafkaConsumer<String, String> createConsumer(String topic){
@@ -89,7 +90,7 @@ public class ElasticSearchConsumer {
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "kafka-demo-elasticsearch");
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"); // latest: read since last offset
         properties.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false"); // disable auto commit of offsets
-        properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "20"); // limit records retrieved
+        properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "10"); // limit records retrieved
 
         // create consumer
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(properties);

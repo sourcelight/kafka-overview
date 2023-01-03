@@ -21,6 +21,8 @@ public class TwitterProducer {
     Logger logger = LoggerFactory.getLogger(TwitterProducer.class.getName());
 
     private String bearerToken = "";
+    //private String topic = "twitter_tweets";
+    private String topic = "inner-topic";
 
     public TwitterProducer(){}
 
@@ -64,13 +66,14 @@ public class TwitterProducer {
 
             if (msg != null) {
                 try{
-                    msgTxt = new JSONObject(msg).getJSONObject("data").get("text").toString();
+                    //msgTxt = new JSONObject(msg).getJSONObject("data").get("text").toString();
+                    msgTxt = new JSONObject(msg).toString();
                     logger.info("Message: " + msgTxt);
                 }catch (JSONException e){
                     logger.error("error: "+e.getMessage() + "msgError:"+ msg);
                 }
                 //producer.send(new ProducerRecord<>("twitter_tweets", null, msgTxt), new Callback() {
-                producer.send(new ProducerRecord<>("twitter-app", null, msgTxt), new Callback() {
+                producer.send(new ProducerRecord<>(topic, null, msgTxt), new Callback() {
                     @Override
                     public void onCompletion(RecordMetadata recordMetadata, Exception e) {
                         if (e != null) {
@@ -94,9 +97,11 @@ public class TwitterProducer {
 
         // create safe Producer
         properties.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true" );
-        properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
-        properties.setProperty(ProducerConfig.RETRIES_CONFIG, Integer.toString(Integer.MAX_VALUE));
-        properties.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, "5");
+        //The properties below are set by default if I set as above an idempotent producer
+
+        //properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
+        //properties.setProperty(ProducerConfig.RETRIES_CONFIG, Integer.toString(Integer.MAX_VALUE));
+        //properties.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, "5");
 
         // create high throughput Producer (at the expense of a bit of latency and CPU usage)
         properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
