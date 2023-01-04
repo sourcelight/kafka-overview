@@ -33,7 +33,8 @@ find . -name "kafka-topics*"
 ./kafka-console-consumer -bootstrap-server localhost:9092 -topic <topic_name> -group <group_name>
 #describe of a consumer group: curent offset, end offset, offset lag
 ./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group <group_name>
-
+#reset a consumer group to replay data,it wouldn't work with the --from-beginning beacuse in the consumer group the offset is saved in kafka, it would work only for a normal consumer without group id.
+./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group <group_name> --reset-offsets --execute --to-earliest
 ```
 
 ## Elastic search server
