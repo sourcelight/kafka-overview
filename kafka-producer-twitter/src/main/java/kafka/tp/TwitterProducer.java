@@ -20,9 +20,9 @@ import java.util.concurrent.TimeUnit;
 public class TwitterProducer {
     Logger logger = LoggerFactory.getLogger(TwitterProducer.class.getName());
 
-    private String bearerToken = "";
+    private String bearerToken = "AAAAAAAAAAAAAAAAAAAAAEEdkwEAAAAAtzAJkdoyGl1r%2BJWKGIvtJfHpdDQ%3DSOyYIUkTTtXE8Vny78OOjQUMJCtCVlzhtUwhidcK8C47n04YSA";
     //private String topic = "twitter_tweets";
-    private String topic = "inner-topic";
+    private String topic = "other-topic";
 
     public TwitterProducer(){}
 
